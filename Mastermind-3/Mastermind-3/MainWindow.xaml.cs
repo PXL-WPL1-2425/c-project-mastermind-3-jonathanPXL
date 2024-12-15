@@ -280,6 +280,7 @@ namespace Mastermind_PE
                 MoveToNextPlayer();
                 AddHighscore(naam, attempts, score);
             }
+            tooltipsTextBox.Text = "Tooltips: \nwitte rand: \"Juiste kleur, foute positie\"\r\nrode rand: \"Juiste kleur, juiste positie\"\r\ngeen kleur: \"Foute kleur\"";
 
         }
         private string GetNextPlayerName()

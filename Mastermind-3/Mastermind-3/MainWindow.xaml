@@ -38,7 +38,7 @@
         </StackPanel>
 
 
-        <GroupBox Header="Historiek" Foreground="White" Margin="10,100,10,247" Background="#252536">
+        <GroupBox Header="Historiek" Foreground="White" Margin="10,100,300,247" Background="#252536">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListBox Name="ListBoxHistoriek" Background="Black" Foreground="White" FontSize="14" />
             </ScrollViewer>
@@ -97,5 +97,6 @@
         Foreground="White" 
         FontWeight="Bold" />
         </StackPanel>
+        <TextBox Name ="tooltipsTextBox" HorizontalAlignment="Left" Margin="533,106,0,0"  Text="Tooltips:" VerticalAlignment="Top" Width="237" Height="172"/>
     </Grid>
 </Window>
