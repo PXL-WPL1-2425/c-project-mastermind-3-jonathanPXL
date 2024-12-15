@@ -37,6 +37,7 @@ namespace Mastermind_PE
         private string[] highscores = new string[15];
         private int highscoreCount = 0;
         private List<string> playerNames = new List<string>();
+        private int currentPlayerIndex = 0;
 
 
         public MainWindow()
@@ -239,21 +240,36 @@ namespace Mastermind_PE
             if (feedback.Contains("J J J J")) // Code gekraakt
             {
                 timer.Stop();
-                MessageBox.Show("Gefeliciteerd! Je hebt de code gekraakt!", "Spel gewonnen");
-
-                // Voeg highscore toe
+                string volgendeSpeler = GetNextPlayerName();
+                MessageBox.Show($"Gefeliciteerd {playerNames[currentPlayerIndex]}! Je hebt de code gekraakt!\nNu is {volgendeSpeler} aan de beurt.",
+                                $"Spel gewonnen - {playerNames[currentPlayerIndex]}");
+                MoveToNextPlayer();
                 AddHighscore(naam, attempts, score);
             }
             else if (attempts >= maxAttemps) // Maximaal aantal pogingen bereikt
             {
                 timer.Stop();
-                MessageBox.Show($"Helaas! Je hebt de code niet gekraakt.\nDe juiste code was: {string.Join(", ", generatedCode)}", "Spel verloren");
-
-                // Voeg highscore toe
+                string volgendeSpeler = GetNextPlayerName();
+                MessageBox.Show($"Helaas {playerNames[currentPlayerIndex]}! Je hebt de code niet gekraakt.\nDe juiste code was: {string.Join(", ", generatedCode)}\nNu is {volgendeSpeler} aan de beurt.",
+                                $"Spel verloren - {playerNames[currentPlayerIndex]}");
+                MoveToNextPlayer();
                 AddHighscore(naam, attempts, score);
             }
 
         }
+        private string GetNextPlayerName()
+        {
+            int nextPlayerIndex = (currentPlayerIndex + 1) % playerNames.Count;
+            return playerNames[nextPlayerIndex];
+        }
+
+        private void MoveToNextPlayer()
+        {
+            currentPlayerIndex = (currentPlayerIndex + 1) % playerNames.Count;
+            this.Title = $"MasterMind - {playerNames[currentPlayerIndex]}";
+            ResetGame();
+        }
+
         private void AddHighscore(string playerName, int attempts, int score)
         {
             if (highscoreCount < highscores.Length)
