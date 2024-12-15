@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Mastermind_PE.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Mastermind Game" Height="600" Width="800"
+        Title="Mastermind Game" Height="650" Width="800"
         Background="#1E1E2E">
     <Grid Margin="10" Loaded="startgame">
 
@@ -38,14 +38,14 @@
         </StackPanel>
 
 
-        <GroupBox Header="Historiek" Foreground="White" Margin="10,100,10,200" Background="#252536">
+        <GroupBox Header="Historiek" Foreground="White" Margin="10,100,10,247" Background="#252536">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListBox Name="ListBoxHistoriek" Background="Black" Foreground="White" FontSize="14" />
             </ScrollViewer>
         </GroupBox>
 
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,383,0,0">
             <TextBlock Text="Maak je keuze:" 
                        Foreground="White" 
                        FontSize="18" 
@@ -87,6 +87,15 @@
                     Background="#3C7BF1" 
                     Foreground="White" 
                     FontWeight="Bold" />
+            <Button Content="Koop Hint" 
+        Width="150" 
+        Height="40" 
+        HorizontalAlignment="Center" 
+        Margin="10,10,10,0" 
+        Click="KoopHint_Click" 
+        Background="#FFAA00" 
+        Foreground="White" 
+        FontWeight="Bold" />
         </StackPanel>
     </Grid>
 </Window>

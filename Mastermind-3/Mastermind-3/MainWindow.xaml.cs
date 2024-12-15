@@ -414,6 +414,74 @@ namespace Mastermind_PE
             }
         }
 
+        private void KoopHint_Click(object sender, RoutedEventArgs e)
+        {
+            // Toon een berichtvenster met opties voor de speler
+            MessageBoxResult result = MessageBox.Show(
+                "Wil je een hint kopen?\n\n" +
+                "1. Een juiste kleur (kost 15 punten).\n" +
+                "2. Een juiste kleur op de juiste plaats (kost 25 punten).\n\n" +
+                "Klik op 'Yes' voor een juiste kleur.\n" +
+                "Klik op 'No' voor een juiste kleur op de juiste plaats.",
+                "Koop een Hint",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // Hint: juiste kleur
+                if (UpdateScore(-15)) // Verlaag de score en controleer
+                {
+                    GeefHintJuisteKleur();
+                }
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                // Hint: juiste kleur op juiste plaats
+                if (UpdateScore(-25)) // Verlaag de score en controleer
+                {
+                    GeefHintJuisteKleurEnPlaats();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Hint geannuleerd.", "Annulering", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private bool UpdateScore(int strafpunten)
+        {
+            int huidigeScore = int.Parse(ScoreLabel.Content.ToString());
+
+            if (huidigeScore + strafpunten < 0)
+            {
+                MessageBox.Show("Niet genoeg punten om deze hint te kopen!", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            huidigeScore += strafpunten;
+            ScoreLabel.Content = huidigeScore.ToString();
+            return true;
+        }
+
+        private void GeefHintJuisteKleur()
+        {
+            Random random = new Random();
+            int hintIndex = random.Next(0, generatedCode.Length);
+
+            string kleur = generatedCode[hintIndex];
+            MessageBox.Show($"Hint: Eén van de juiste kleuren is '{kleur}'.", "Hint - Juiste Kleur", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void GeefHintJuisteKleurEnPlaats()
+        {
+            Random random = new Random();
+            int hintIndex = random.Next(0, generatedCode.Length);
+
+            string kleur = generatedCode[hintIndex];
+            MessageBox.Show($"Hint: De kleur '{kleur}' zit op positie {hintIndex + 1}.", "Hint - Kleur & Positie", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
 
     }
 }
