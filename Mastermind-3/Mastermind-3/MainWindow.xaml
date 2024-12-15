@@ -29,9 +29,12 @@
             <TextBlock Text="Tijd: " Foreground="White" FontSize="16" Margin="0,0,5,0" />
             <TextBox Name="timerTextBox" Width="60" Text="0" IsReadOnly="True" 
                      HorizontalAlignment="Left" Background="Black" Foreground="White" />
-            <TextBlock Text="  |  Score: " Foreground="White" FontSize="16" Margin="10,0,5,0" />
+            <TextBlock Text="    Score: " Foreground="White" FontSize="16" Margin="10,0,5,0" />
             <Label Name="ScoreLabel" Width="60" Content="100"  
                      HorizontalAlignment="Left" Background="Black" Foreground="White" />
+            <TextBlock Text=" Actieve speler: " Foreground="White" FontSize="16" Margin="0,0,5,0" />
+            <Label Name="ActivePlayerLabel" Width="200" Content="Spelernaam - 0 pogingen"  
+           Background="Black" Foreground="White"  Padding="5" />
         </StackPanel>
 
 

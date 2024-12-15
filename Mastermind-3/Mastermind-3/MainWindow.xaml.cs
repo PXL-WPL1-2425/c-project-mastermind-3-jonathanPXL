@@ -74,6 +74,17 @@ namespace Mastermind_PE
                     morePlayers = false;
                 }
             }
+            UpdateActivePlayerLabel();
+            maxAttemps = int.Parse(Interaction.InputBox("Hoeveel pogingen wil je hebben", "Aantal pogingen"));
+
+            while (maxAttemps < 3 || maxAttemps > 20)
+            {
+                maxAttemps = int.Parse(Interaction.InputBox("Hoeveel pogingen wil je hebben", "Aantal pogingen"));
+            }
+
+        }
+        private void pogingen_Click(object sender, RoutedEventArgs e)
+        {
             maxAttemps = int.Parse(Interaction.InputBox("Hoeveel pogingen wil je hebben", "Aantal pogingen"));
 
             while (maxAttemps < 3 || maxAttemps > 20)
@@ -83,14 +94,27 @@ namespace Mastermind_PE
         }
         private void startgame2()
         {
-            naam = Interaction.InputBox("Wat is jouw naam?", "Naam gebruiker");
-
-            while (string.IsNullOrEmpty(naam))
+            bool morePlayers = true;
+            while (morePlayers)
             {
-
                 naam = Interaction.InputBox("Wat is jouw naam?", "Naam gebruiker");
-            }
+                if (!string.IsNullOrWhiteSpace(naam))
+                {
+                    playerNames.Add(naam); // Voeg de naam toe aan de lijst
+                }
+                else
+                {
+                    MessageBox.Show("Naam mag niet leeg zijn. Probeer het opnieuw.", "Foutmelding");
+                    continue; // Vraag opnieuw om een naam
+                }
 
+                var result = MessageBox.Show("Wil je nog een speler toevoegen?", "Nog een speler?", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.No)
+                {
+                    morePlayers = false;
+                }
+            }
             maxAttemps = int.Parse(Interaction.InputBox("Hoeveel pogingen wil je hebben", "Aantal pogingen"));
 
             while (maxAttemps < 3 || maxAttemps > 20)
@@ -184,6 +208,7 @@ namespace Mastermind_PE
         {
 
             attempts++;
+            UpdateActivePlayerLabel();
             this.Title = $"MasterMind ({string.Join(",", generatedCode)}), Poging: " + attempts;
 
             timer.Start();
@@ -267,7 +292,9 @@ namespace Mastermind_PE
         {
             currentPlayerIndex = (currentPlayerIndex + 1) % playerNames.Count;
             this.Title = $"MasterMind - {playerNames[currentPlayerIndex]}";
+
             ResetGame();
+            UpdateActivePlayerLabel();
         }
 
         private void AddHighscore(string playerName, int attempts, int score)
@@ -374,9 +401,17 @@ namespace Mastermind_PE
             startgame2();
         }
 
-        private void pogingen_Click(object sender, RoutedEventArgs e)
+        private void UpdateActivePlayerLabel()
         {
-            MessageBox.Show($"Aantal pogingen: {attempts}");
+            // Controleer of er een speler actief is
+            if (!string.IsNullOrEmpty(naam))
+            {
+                ActivePlayerLabel.Content = $"{playerNames[currentPlayerIndex]} - {attempts} pogingen";
+            }
+            else
+            {
+                ActivePlayerLabel.Content = "Geen actieve speler";
+            }
         }
 
 
